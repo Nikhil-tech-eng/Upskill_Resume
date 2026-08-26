@@ -22,7 +22,9 @@ public class ResumeAnalysisService {
             String suggestions,
             String summary) {
 
-        ResumeAnalysis analysis = new ResumeAnalysis();
+        ResumeAnalysis analysis = analysisRepository
+                .findByResumeId(resume.getId())
+                .orElse(new ResumeAnalysis());
 
         analysis.setResume(resume);
         analysis.setAtsScore(atsScore);

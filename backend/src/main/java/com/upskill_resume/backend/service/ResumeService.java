@@ -14,11 +14,13 @@ public class ResumeService {
     private final ResumeRepository resumeRepository;
     private final UserRepository userRepository;
 
-    public ResumeService(ResumeRepository resumeRepository,
-                        UserRepository userRepository) {
-        this.resumeRepository = resumeRepository;
-        this.userRepository = userRepository;
-    }
+    public ResumeService(
+        ResumeRepository resumeRepository,
+        UserRepository userRepository) {
+
+    this.resumeRepository = resumeRepository;
+    this.userRepository = userRepository;
+}
 
     public Resume saveResume(String fileName, String extractedText, Long userId) {
 
@@ -38,5 +40,21 @@ public class ResumeService {
 
     return resumeRepository.findById(resumeId)
             .orElseThrow(() -> new RuntimeException("Resume not found"));
+    }
+
+    public Long getUserIdByEmail(String email) {
+
+    return userRepository.findByEmail(email)
+            .orElseThrow(() ->
+                    new RuntimeException("User not found"))
+            .getId();
+    }
+
+    public Resume getResumeByIdAndUser(Long resumeId, Long userId) {
+
+    return resumeRepository.findById(resumeId)
+            .filter(resume -> resume.getUser().getId().equals(userId))
+            .orElseThrow(() ->
+                    new RuntimeException("Resume not found"));
     }
 }

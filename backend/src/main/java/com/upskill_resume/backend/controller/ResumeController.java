@@ -10,6 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.MediaType;
 import com.upskill_resume.backend.entity.ResumeAnalysis;
 import com.upskill_resume.backend.service.ResumeAnalysisService;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
@@ -35,54 +38,83 @@ public class ResumeController {
     this.resumeAnalysisService = resumeAnalysisService;
 }
 
-    @PostMapping(
-        value = "/upload",
-        consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+        @PostMapping(
+            value = "/upload",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
     )
     public ResponseEntity<Resume> uploadResume(
-        @RequestParam("file") MultipartFile file,
-        @RequestParam("userId") Long userId) throws Exception {
+            @RequestParam("file") MultipartFile file,
+            Authentication authentication) throws Exception {
 
-    String extractedText = resumeParserService.extractText(file);
+        String email = authentication.getName();
 
-    Resume resume = resumeService.saveResume(
-            file.getOriginalFilename(),
-            extractedText,
+        String extractedText = resumeParserService.extractText(file);
+
+        Resume resume = resumeService.saveResume(
+                file.getOriginalFilename(),
+                extractedText,
+                resumeService.getUserIdByEmail(email)
+        );
+
+        return ResponseEntity.ok(resume);
+    }
+
+    @GetMapping("/my")
+    public ResponseEntity<List<Resume>> getMyResumes(
+        Authentication authentication) {
+
+    String email = authentication.getName();
+
+    Long userId = resumeService.getUserIdByEmail(email);
+
+    return ResponseEntity.ok(
+            resumeService.getUserResumes(userId)
+    );
+    }
+
+        @PostMapping("/analyze/{resumeId}")
+    public ResponseEntity<ResumeAnalysis> analyzeResume(
+        @PathVariable Long resumeId,
+        Authentication authentication) {
+
+    String email = authentication.getName();
+
+    Long userId = resumeService.getUserIdByEmail(email);
+
+    Resume resume = resumeService.getResumeByIdAndUser(
+            resumeId,
             userId
     );
-
-    return ResponseEntity.ok(resume);
-    }
-
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Resume>> getUserResumes(
-            @PathVariable Long userId) {
-
-        return ResponseEntity.ok(
-                resumeService.getUserResumes(userId)
-        );
-    }
-
-    @PostMapping("/analyze/{resumeId}")
-    public ResponseEntity<ResumeAnalysis> analyzeResume(
-        @PathVariable Long resumeId) {
-
-    Resume resume = resumeService.getResumeById(resumeId);
 
     String result = geminiService.analyzeResume(
             resume.getExtractedText()
     );
 
-    ResumeAnalysis analysis = resumeAnalysisService.saveAnalysis(
-            resume,
-            null,
-            result,
-            "",
-            "",
-            result
-    );
+    try {
+        ObjectMapper objectMapper = new ObjectMapper();
 
-    return ResponseEntity.ok(analysis);
+        JsonNode json = objectMapper.readTree(result);
+
+        Integer atsScore = json.get("atsScore").asInt();
+        String skills = json.get("skills").asText();
+        String missingSkills = json.get("missingSkills").asText();
+        String suggestions = json.get("suggestions").asText();
+        String summary = json.get("summary").asText();
+
+        ResumeAnalysis analysis = resumeAnalysisService.saveAnalysis(
+                resume,
+                atsScore,
+                skills,
+                missingSkills,
+                suggestions,
+                summary
+        );
+
+        return ResponseEntity.ok(analysis);
+
+    } catch (Exception e) {
+        return ResponseEntity.internalServerError().build();
+    }
     }
 
     @GetMapping("/analysis/{resumeId}")
