@@ -8,31 +8,48 @@ const [password, setPassword] = useState("");
 const handleLogin = async (e) => {
 e.preventDefault();
 
-const response = await apiFetch("/api/users/login", {
+try {
+    const response = await apiFetch("/api/users/login", {
     method: "POST",
     headers: {
-    "Content-Type": "application/json",
+        "Content-Type": "application/json",
     },
     body: JSON.stringify({
-    email,
-    password,
+        email,
+        password,
     }),
-});
+    });
 
-const data = await response.text();
+    const data = await response.text();
 
-if (response.ok) {
+    if (response.ok) {
     localStorage.setItem("token", data);
+
+    if (localStorage.getItem("redirectAfterLogin") === "ats") {
+        localStorage.removeItem("redirectAfterLogin");
+        localStorage.setItem("openPage", "ats");
+    } else {
+        localStorage.removeItem("openPage");
+    }
+
     window.location.reload();
-} else {
+    } else {
     alert(data || "Login failed");
+    }
+
+} catch (error) {
+    console.error(error);
+    alert("Something went wrong");
 }
 };
 
 return (
 <div className="auth-page">
+
     <form className="auth-card" onSubmit={handleLogin}>
+
     <h1>Welcome Back</h1>
+
     <p>Login to Upskill_Resume</p>
 
     <input
@@ -51,10 +68,15 @@ return (
         required
     />
 
-    <button type="submit" className="primary-btn">
+    <button
+        type="submit"
+        className="primary-btn"
+    >
         Login
     </button>
+
     </form>
+
 </div>
 );
 }

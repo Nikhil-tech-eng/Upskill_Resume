@@ -1,13 +1,17 @@
 import { useState } from "react";
 import "./App.css";
+
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import ResumeUpload from "./pages/ResumeUpload";
 
 function App() {
   const [page, setPage] = useState(
-    localStorage.getItem("token") ? "dashboard" : "home"
-  );
+  localStorage.getItem("token")
+    ? localStorage.getItem("openPage") || "dashboard"
+    : "home"
+);  
 
   if (page === "login") {
     return (
@@ -32,56 +36,282 @@ function App() {
   }
 
   if (page === "dashboard") {
-    return <Dashboard />;
+  return <Dashboard />;
+  }
+
+  if (page === "ats") {
+    return <ResumeUpload />;
   }
 
   return (
-    <div className="app">
-      <nav className="navbar">
-        <h2>Upskill_Resume</h2>
+    <div className="landing-page">
 
-        <div className="nav-links">
-          <button onClick={() => setPage("login")}>Login</button>
+      {/* NAVBAR */}
+      <nav className="landing-navbar">
+
+        <h2 className="landing-logo">
+          Upskill_Resume
+        </h2>
+
+        <div className="landing-nav-links">
+
+          <button className="nav-active">
+            Home
+          </button>
+
+          <button>
+            Resume Analysis
+          </button>
+
+          <button>
+            Job Matching
+          </button>
+
+          <button>
+            Interview Preparation
+          </button>
+
+          <button>
+            Learning Resources
+          </button>
+
+          <button>
+            About Us
+          </button>
+
+          <button>
+            Contact
+          </button>
+
+        </div>
+
+        <div className="landing-auth">
 
           <button
-            className="register-btn"
+            className="login-nav-btn"
+            onClick={() => setPage("login")}
+          >
+            Login
+          </button>
+
+          <button
+            className="register-nav-btn"
             onClick={() => setPage("register")}
           >
             Register
           </button>
+
         </div>
+
       </nav>
 
-      <main className="hero">
-        <div className="hero-content">
+
+      {/* HERO */}
+      <main>
+
+        <section className="landing-hero">
+
+          <div className="hero-badge">
+            AI-Powered Career Platform
+          </div>
+
           <h1>
-            Build a Better Resume.
+            Build Your Career
             <br />
-            Get Hired Faster.
+            <span>With AI</span>
           </h1>
 
           <p>
-            Upload your resume, get AI-powered ATS analysis,
-            discover skill gaps, and prepare for your next interview.
+            Create a professional resume or check how
+            ATS-ready your resume really is.
           </p>
 
-          <div className="hero-buttons">
-            <button
-              className="primary-btn"
-              onClick={() => setPage("register")}
-            >
-              Get Started
+
+          {/* TWO MAIN OPTIONS */}
+          <div className="landing-options">
+
+            <div className="landing-option-card">
+
+              <div className="landing-option-icon">
+                📄
+              </div>
+
+              <h2>
+                Create Resume
+              </h2>
+
+              <p>
+                Build a professional, ATS-friendly resume
+                with AI-powered assistance and modern templates.
+              </p>
+
+              <button
+                onClick={() => setPage("register")}
+              >
+                Create My Resume →
+              </button>
+
+            </div>
+
+
+            <div className="landing-option-card">
+
+              <div className="landing-option-icon">
+                📊
+              </div>
+
+              <h2>
+                ATS Check
+              </h2>
+
+              <p>
+                Upload your existing resume and discover
+                your ATS score, skills, gaps and improvements.
+              </p>
+
+              <button
+                onClick={() => {
+                  if (localStorage.getItem("token")) {
+                    setPage("ats");
+                  } else {
+                    localStorage.setItem("redirectAfterLogin", "ats");
+                    setPage("login");
+                  }
+                }}
+              >
+                Check My Resume →
             </button>
 
-            <button
-              className="secondary-btn"
-              onClick={() => setPage("login")}
-            >
-              Login
-            </button>
+            </div>
+
           </div>
-        </div>
+
+        </section>
+
+
+        {/* FEATURES */}
+        <section className="landing-features">
+
+          <h2>
+            Everything You Need for Your Career
+          </h2>
+
+          <p className="section-description">
+            Go beyond your resume with AI-powered career tools.
+          </p>
+
+
+          <div className="landing-feature-grid">
+
+            <div className="landing-feature-card">
+              <div>🎯</div>
+              <h3>Job Matching</h3>
+              <p>
+                Find out how well your resume matches
+                a specific job description.
+              </p>
+            </div>
+
+
+            <div className="landing-feature-card">
+              <div>💬</div>
+              <h3>Interview Preparation</h3>
+              <p>
+                Generate personalized interview questions
+                based on your resume.
+              </p>
+            </div>
+
+
+            <div className="landing-feature-card">
+              <div>📚</div>
+              <h3>Learning Resources</h3>
+              <p>
+                Discover resources to improve your missing
+                skills and close your skill gaps.
+              </p>
+            </div>
+
+
+            <div className="landing-feature-card">
+              <div>🤖</div>
+              <h3>AI Career Insights</h3>
+              <p>
+                Get intelligent recommendations to improve
+                your career profile.
+              </p>
+            </div>
+
+          </div>
+
+        </section>
+
+
+        {/* HOW IT WORKS */}
+        <section className="landing-workflow">
+
+          <h2>
+            Your Career Journey Starts Here
+          </h2>
+
+          <div className="workflow-items">
+
+            <div className="workflow-item">
+              <span>01</span>
+              <h3>Create or Upload</h3>
+              <p>
+                Start with a new resume or upload your existing one.
+              </p>
+            </div>
+
+            <div className="workflow-item">
+              <span>02</span>
+              <h3>Analyze</h3>
+              <p>
+                AI analyzes your resume, skills and career profile.
+              </p>
+            </div>
+
+            <div className="workflow-item">
+              <span>03</span>
+              <h3>Improve</h3>
+              <p>
+                Identify gaps and improve your resume.
+              </p>
+            </div>
+
+            <div className="workflow-item">
+              <span>04</span>
+              <h3>Prepare</h3>
+              <p>
+                Match jobs and prepare for interviews.
+              </p>
+            </div>
+
+          </div>
+
+        </section>
+
+
+        {/* FOOTER */}
+        <footer className="landing-footer">
+
+          <h3>
+            Upskill_Resume
+          </h3>
+
+          <p>
+            AI-powered tools to build, improve and grow your career.
+          </p>
+
+          <div>
+            © 2026 Upskill_Resume
+          </div>
+
+        </footer>
+
       </main>
+
     </div>
   );
 }
