@@ -6,6 +6,7 @@ import com.upskill_resume.backend.service.InterviewQuestionService;
 import com.upskill_resume.backend.service.ResumeService;
 import com.upskill_resume.backend.service.GeminiService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,9 +32,13 @@ public class InterviewQuestionController {
 
     @PostMapping("/generate/{resumeId}")
     public ResponseEntity<String> generateQuestions(
-            @PathVariable Long resumeId) {
+            @PathVariable Long resumeId,
+            Authentication authentication) {
 
-        Resume resume = resumeService.getResumeById(resumeId);
+        String email = authentication.getName();
+        Long userId = resumeService.getUserIdByEmail(email);
+
+        Resume resume = resumeService.getResumeByIdAndUser(resumeId, userId);
 
         String questions = geminiService.generateInterviewQuestions(
                 resume.getExtractedText()
@@ -44,7 +49,13 @@ public class InterviewQuestionController {
 
     @GetMapping("/{resumeId}")
     public ResponseEntity<List<InterviewQuestion>> getQuestions(
-            @PathVariable Long resumeId) {
+            @PathVariable Long resumeId,
+            Authentication authentication) {
+
+        String email = authentication.getName();
+        Long userId = resumeService.getUserIdByEmail(email);
+
+        resumeService.getResumeByIdAndUser(resumeId, userId);
 
         return ResponseEntity.ok(
                 questionService.getQuestions(resumeId)

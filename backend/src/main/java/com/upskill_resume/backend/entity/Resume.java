@@ -1,6 +1,8 @@
 package com.upskill_resume.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "resumes")
@@ -16,6 +18,12 @@ public class Resume {
     @Column(columnDefinition = "TEXT")
     private String extractedText;
 
+    // Keep this nullable for schema updates on databases that already contain
+    // resumes. New records always receive a timestamp in onCreate().
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -27,6 +35,13 @@ public class Resume {
         this.fileName = fileName;
         this.extractedText = extractedText;
         this.user = user;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        if (this.createdAt == null) {
+            this.createdAt = LocalDateTime.now();
+        }
     }
 
     public Long getId() {
@@ -47,6 +62,14 @@ public class Resume {
 
     public void setExtractedText(String extractedText) {
         this.extractedText = extractedText;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public User getUser() {

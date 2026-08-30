@@ -126,4 +126,13 @@ public class ResumeController {
     );
     }
 
+    @DeleteMapping("/{resumeId}")
+    public ResponseEntity<Void> deleteResume(
+            @PathVariable Long resumeId,
+            Authentication authentication) {
+
+        String email = authentication.getName();
+        resumeService.deleteResume(resumeId, email);
+        return ResponseEntity.noContent().build();
+    }
 }

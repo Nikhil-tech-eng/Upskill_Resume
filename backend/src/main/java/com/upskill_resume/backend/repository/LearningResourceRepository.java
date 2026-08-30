@@ -9,4 +9,6 @@ public interface LearningResourceRepository
         extends JpaRepository<LearningResource, Long> {
 
     List<LearningResource> findBySkillIgnoreCase(String skill);
+
+    List<LearningResource> findBySkillContainingIgnoreCase(String skill);
 }

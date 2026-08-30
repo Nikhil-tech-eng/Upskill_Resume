@@ -1,0 +1,279 @@
+/* Navbar Component Specific Styles */
+
+/* Base Container & Navbar */
+.global-navbar-container {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.landing-navbar {
+  width: 100%;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.landing-logo,
+.landing-logo:visited,
+.landing-logo:hover,
+.landing-logo:active,
+.landing-logo:focus {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #38bdf8 !important;
+  text-decoration: none !important;
+  letter-spacing: -0.02em;
+  transition: all 0.18s ease;
+  outline: none;
+}
+
+.landing-logo:hover {
+  opacity: 0.85;
+  transform: scale(1.02);
+}
+
+.landing-logo:focus-visible {
+  opacity: 0.9;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+}
+
+/* Nav Links Container */
+.landing-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Individual Links Reset & Styling */
+.landing-nav-links a,
+.landing-nav-links a:visited,
+.landing-nav-links a:active {
+  color: #cbd5e1 !important;
+  text-decoration: none !important;
+  font-size: 0.925rem;
+  font-weight: 500;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  transition: all 0.18s ease;
+  outline: none;
+}
+
+.landing-nav-links a:hover {
+  color: #f1f5f9 !important;
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.landing-nav-links a:focus-visible {
+  color: #f1f5f9 !important;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.5);
+}
+
+/* Active Nav Link */
+.landing-nav-links a.nav-active,
+.landing-nav-links a.nav-active:visited,
+.landing-nav-links a.nav-active:active {
+  color: #38bdf8 !important;
+  background: rgba(56, 189, 248, 0.15);
+  font-weight: 600;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.3);
+}
+
+.landing-nav-links a.nav-active:hover {
+  background: rgba(56, 189, 248, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4), 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Admin Link Override */
+.landing-nav-links a.admin-link,
+.landing-nav-links a.admin-link:visited {
+  color: #a855f7 !important;
+}
+
+.landing-nav-links a.admin-link:hover {
+  color: #c084fc !important;
+  background: rgba(168, 85, 247, 0.15);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(168, 85, 247, 0.2);
+}
+
+.landing-nav-links a.admin-link:focus-visible {
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.5);
+}
+
+.landing-nav-links a.admin-link.nav-active {
+  background: rgba(168, 85, 247, 0.2);
+  box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.4);
+}
+
+/* Auth Section */
+.landing-auth {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Auth Buttons Reset */
+.landing-auth a,
+.landing-auth a:visited,
+.landing-auth button {
+  text-decoration: none !important;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.5rem 1.1rem;
+  border-radius: 8px;
+  transition: all 0.18s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.login-nav-btn,
+.login-nav-btn:visited {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.login-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+}
+
+.login-nav-btn:focus-visible {
+  box-shadow: 0 0 0 2px rgba(248, 250, 252, 0.4);
+}
+
+.register-nav-btn,
+.register-nav-btn:visited {
+  color: #0f172a !important;
+  background: #38bdf8;
+  border: 1px solid transparent;
+}
+
+.register-nav-btn:hover {
+  background: #7dd3fc;
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
+}
+
+.register-nav-btn:focus-visible {
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.6);
+}
+
+.logout-btn {
+  color: #f87171 !important;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.logout-btn:hover {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: rgba(239, 68, 68, 0.35);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+}
+
+.logout-btn:focus-visible {
+  box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.5);
+}
+
+/* Mobile Toggle */
+.navbar-mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #f8fafc;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+/* Mobile Menu Dropdown */
+.navbar-mobile-menu {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.5rem;
+  background: #0f172a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 0.5rem;
+}
+
+.mobile-nav-link,
+.mobile-nav-link:visited {
+  color: #94a3b8 !important;
+  text-decoration: none !important;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.nav-active {
+  color: #38bdf8 !important;
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.mobile-auth-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0.5rem 0;
+}
+
+.mobile-auth-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mobile-auth-btn,
+.mobile-auth-btn:visited {
+  text-align: center;
+  padding: 0.6rem;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none !important;
+}
+
+.mobile-login-btn {
+  color: #f8fafc !important;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mobile-register-btn {
+  color: #0f172a !important;
+  background: #38bdf8;
+}
+
+.mobile-logout-btn {
+  color: #f87171 !important;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* Responsive Media Query */
+@media (max-width: 900px) {
+  .landing-nav-links,
+  .landing-auth {
+    display: none;
+  }
+
+  .navbar-mobile-toggle {
+    display: block;
+  }
+}

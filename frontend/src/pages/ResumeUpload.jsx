@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { apiFetch } from "../api";
 
-function ResumeUpload() {
+function ResumeUpload({ onNavigate }) {
+const navigate = useNavigate();
 const [file, setFile] = useState(null);
 const [dragging, setDragging] = useState(false);
 const [loading, setLoading] = useState(false);
@@ -9,14 +11,10 @@ const [analysis, setAnalysis] = useState(null);
 const [showSuggestion, setShowSuggestion] = useState(false);
 
 const goHome = () => {
-    localStorage.setItem("openPage", "dashboard");
-    window.location.reload();
-};
-
-const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("openPage");
-    window.location.reload();
+    if (onNavigate) {
+        onNavigate("home");
+    }
+    navigate("/");
 };
 
 const handleFile = (selectedFile) => {
@@ -105,69 +103,6 @@ const handleAnalyze = async () => {
 
 return (
     <div className="ats-page">
-
-    {/* NAVBAR */}
-
-    <nav className="landing-navbar">
-
-        <button
-        className="landing-logo"
-        onClick={goHome}
-        >
-        Upskill_Resume
-        </button>
-
-        <div className="landing-nav-links">
-
-        <button onClick={goHome}>
-            Home
-        </button>
-
-        <button className="nav-active">
-            Resume Analysis
-        </button>
-
-        <button>
-            Job Matching
-        </button>
-
-        <button>
-            Interview Preparation
-        </button>
-
-        <button>
-            Learning Resources
-        </button>
-
-        <button>
-            About Us
-        </button>
-
-        <button>
-            Contact
-        </button>
-
-        </div>
-
-        <div className="landing-auth">
-
-        <button
-            className="login-nav-btn"
-            onClick={goHome}
-        >
-            Home
-        </button>
-
-        <button
-            className="register-nav-btn"
-            onClick={handleLogout}
-        >
-            Logout
-        </button>
-
-        </div>
-
-    </nav>
 
 
     {/* BACK BUTTON */}

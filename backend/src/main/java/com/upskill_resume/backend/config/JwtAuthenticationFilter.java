@@ -23,6 +23,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getServletPath();
+        return "/api/users/login".equals(path) || "/api/users/register".equals(path);
+    }
+
+    @Override
     protected void doFilterInternal(
             HttpServletRequest request,
             HttpServletResponse response,
@@ -39,12 +45,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         try {
             String email = jwtService.extractEmail(token);
+            String role = jwtService.extractRole(token);
+            String roleStr = "ROLE_" + role;
+            org.springframework.security.core.authority.SimpleGrantedAuthority authority =
+                    new org.springframework.security.core.authority.SimpleGrantedAuthority(roleStr);
 
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
                             email,
                             null,
-                            Collections.emptyList()
+                            Collections.singletonList(authority)
                     );
 
             SecurityContextHolder.getContext()
