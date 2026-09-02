@@ -132,6 +132,12 @@ function LearningResources({ onNavigate }) {
     setError(null);
   };
 
+  const buildGoogleSearchUrl = (term) => {
+    const cleanTerm = (term || "").trim();
+    const query = cleanTerm ? `${cleanTerm} learning resources` : "learning resources";
+    return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+  };
+
   return (
     <div className="lr-page">
       {/* BACK NAVIGATION */}
@@ -291,7 +297,7 @@ function LearningResources({ onNavigate }) {
                     <h2 style={{ color: '#172033' }}>
                       {activeSkillFilter
                         ? `${resources.length} Resource${resources.length !== 1 ? "s" : ""} for "${activeSkillFilter}"`
-                        : `All Learning Resources (${resources.length})`}
+                        : "All Learning Resources"}
                     </h2>
                   </div>
                   {activeSkillFilter && (
@@ -337,17 +343,27 @@ function LearningResources({ onNavigate }) {
             {!searchLoading && resources.length === 0 && (
               <div className="lr-empty-card">
                 <div className="lr-empty-icon">📭</div>
-                <h2>No Resources Found for "{activeSkillFilter}"</h2>
+                <h2>No Resources Found for "{activeSkillFilter || skill || "this skill"}"</h2>
                 <p>
-                  We couldn't find matches for this specific skill. Try searching for a broader technology or clear your search filter to browse all resources.
+                  We couldn't find curated learning material for this skill yet. Try a broader search term or browse the full catalog below.
                 </p>
-                <button
-                  type="button"
-                  className="primary-btn"
-                  onClick={handleClearFilter}
-                >
-                  View All Learning Resources
-                </button>
+                <div className="lr-empty-actions">
+                  <a
+                    href={buildGoogleSearchUrl(activeSkillFilter || skill || "learning resources")}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="primary-btn lr-google-link"
+                  >
+                    Search on Google
+                  </a>
+                  <button
+                    type="button"
+                    className="secondary-btn"
+                    onClick={handleClearFilter}
+                  >
+                    View All Learning Resources
+                  </button>
+                </div>
               </div>
             )}
           </>

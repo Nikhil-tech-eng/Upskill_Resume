@@ -1,0 +1,30 @@
+
+.resume-template{box-sizing:border-box;width:100%;max-width:850px;min-height:1100px;margin:0 auto;background:#fff;color:#20242a;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.45;overflow-wrap:anywhere}
+.resume-template *{box-sizing:border-box}
+.resume-template h1,.resume-template h2,.resume-template h3,.resume-template h4,.resume-template p{margin:0}
+.resume-template h1{font-size:32px;line-height:1.08;letter-spacing:-.5px}
+.resume-template h2{font-size:15px;font-weight:500;margin-top:7px}
+.resume-template h3{font-size:11px;letter-spacing:1.7px;text-transform:uppercase;margin-bottom:9px}
+.resume-template h4{font-size:14px;line-height:1.25}
+.resume-template p{margin-top:6px}
+.resume-template ul{margin:6px 0 0 17px;padding:0}
+.resume-template li{margin:2px 0}
+.resume-template a{color:inherit;text-decoration:none}
+.resume-template .rt-header{padding:42px 48px 24px}
+.resume-template .rt-contact{display:flex;flex-wrap:wrap;gap:5px 14px;margin-top:13px;font-size:11px}
+.resume-template .rt-contact span:not(:last-child)::after{content:' •';margin-left:14px}
+.resume-template .rt-body{padding:0 48px 48px}
+.resume-template .rt-section{margin-top:22px}
+.resume-template .rt-section:first-child{margin-top:0}
+.resume-template .rt-entry{margin:0 0 15px}
+.resume-template .rt-entry-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}
+.resume-template .rt-entry-head time,.resume-template time{font-size:10px;white-space:nowrap}
+.resume-template .rt-org,.resume-template .rt-meta,.resume-template .rt-tech{font-size:11px;margin-top:3px}
+.resume-template .rt-skills{display:flex;flex-wrap:wrap;gap:6px 14px}
+.resume-template .rt-cert{position:relative}
+.resume-template .rt-layout{display:grid;grid-template-columns:31% 69%;gap:32px}
+.resume-template .rt-layout aside{min-width:0}
+.resume-template .rt-layout main{min-width:0}
+@media print{.resume-template{margin:0;max-width:none;box-shadow:none}.resume-template .rt-header{break-inside:avoid}.resume-template .rt-entry{break-inside:avoid}}
+@media(max-width:700px){.resume-template{min-height:auto}.resume-template .rt-header,.resume-template .rt-body{padding-left:24px;padding-right:24px}.resume-template .rt-layout{grid-template-columns:1fr;gap:0}}
+.rt-09{font-family:Arial,sans-serif}.rt-09 .rt-header{display:flex;justify-content:space-between;border-bottom:4px solid #222}.rt-09 .rt-contact{justify-content:flex-end;max-width:330px}.rt-09 .rt-layout{grid-template-columns:27% 73%;gap:25px}.rt-09 .rt-layout aside{border-right:2px solid #222;padding-right:18px}.rt-09 .rt-section h3{border-left:5px solid #222;padding-left:7px}.rt-09 .rt-skills{display:block}.rt-09 .rt-skills span{display:block;margin-bottom:5px}

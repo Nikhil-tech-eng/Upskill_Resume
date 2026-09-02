@@ -24,7 +24,7 @@ export default function Home() {
 
         {/* TWO MAIN OPTIONS */}
         <div className="landing-options">
-          <div className="landing-option-card">
+          <div className="landing-option-card landing-option-card-primary">
             <div className="landing-option-icon">📄</div>
             <h2>Create Resume</h2>
             <p>

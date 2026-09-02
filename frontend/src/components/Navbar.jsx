@@ -24,19 +24,26 @@ function Navbar() {
   return (
     <header className="global-navbar-container">
       <nav className="landing-navbar">
-        {/* LOGO */}
         <Link
           to="/"
           className="landing-logo navbar-brand-btn"
           onClick={closeMobileMenu}
+          aria-label="Upskill Resume home"
         >
-          Upskill_Resume
+          <span className="brand-mark">U</span>
+          <span className="brand-wordmark">
+            <span className="brand-primary">Upskill</span>
+            <span className="brand-accent">_Resume</span>
+          </span>
         </Link>
 
-        {/* DESKTOP NAV LINKS */}
         <div className="landing-nav-links">
           <NavLink to="/" end className={getNavLinkClass}>
             Home
+          </NavLink>
+
+          <NavLink to="/resume-builder" className={getNavLinkClass}>
+            Create Resume
           </NavLink>
 
           <NavLink to="/resume-analysis" className={getNavLinkClass}>
@@ -64,13 +71,15 @@ function Navbar() {
           </NavLink>
 
           {role === "ADMIN" && (
-            <NavLink to="/admin" className={({ isActive }) => `admin-link ${getNavLinkClass({ isActive })}`}>
+            <NavLink
+              to="/admin"
+              className={({ isActive }) => `admin-link ${getNavLinkClass({ isActive })}`}
+            >
               Admin
             </NavLink>
           )}
         </div>
 
-        {/* DESKTOP AUTH BUTTONS */}
         <div className="landing-auth">
           {isLoggedIn ? (
             <button
@@ -99,7 +108,6 @@ function Navbar() {
           )}
         </div>
 
-        {/* MOBILE HAMBURGER TOGGLE */}
         <button
           type="button"
           className="navbar-mobile-toggle"
@@ -115,11 +123,14 @@ function Navbar() {
         </button>
       </nav>
 
-      {/* MOBILE MENU DROPDOWN */}
       {mobileMenuOpen && (
         <div className="navbar-mobile-menu">
           <NavLink to="/" end className={getMobileNavLinkClass} onClick={closeMobileMenu}>
             Home
+          </NavLink>
+
+          <NavLink to="/resume-builder" className={getMobileNavLinkClass} onClick={closeMobileMenu}>
+            Create Resume
           </NavLink>
 
           <NavLink to="/resume-analysis" className={getMobileNavLinkClass} onClick={closeMobileMenu}>
@@ -147,7 +158,7 @@ function Navbar() {
           </NavLink>
 
           {role === "ADMIN" && (
-            <NavLink to="/admin" className={getMobileNavLinkClass} onClick={closeMobileMenu} style={{ color: "#a855f7" }}>
+            <NavLink to="/admin" className={getMobileNavLinkClass} onClick={closeMobileMenu}>
               Admin
             </NavLink>
           )}
